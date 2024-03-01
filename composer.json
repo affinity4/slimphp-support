@@ -1,0 +1,25 @@
+{
+    "name": "lukewatts/slimphp-facades",
+    "description": "",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luke Watts",
+            "email": "watts.luke@yahoo.com",
+            "homepage": "https://luke-watts.com"
+        }
+    ],
+    "require-dev": {
+        "slim/slim": "^4.0",
+        "phpunit/phpunit": "^10",
+        "guzzlehttp/psr7": "^2",
+        "php-di/php-di": "^7.0",
+        "php-di/slim-bridge": "^3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "SlimFacades\\": "src/"
+        }
+    }
+}
