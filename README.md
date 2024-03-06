@@ -5,7 +5,7 @@ Add Laravel style facades and helper functions to any SlimPHP app.
 ## Installation
 
 ```bash
-composer require lukewatts/slimphp-facades
+composer require affinity4/slimphp-facades
 ```
 
 ## Usage
