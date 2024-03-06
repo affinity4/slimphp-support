@@ -1,12 +1,12 @@
 {
-    "name": "lukewatts/slimphp-facades",
+    "name": "affinity4/slimphp-facades",
     "description": "",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Luke Watts",
-            "email": "watts.luke@yahoo.com",
+            "email": "info@luke-watts.com",
             "homepage": "https://luke-watts.com"
         }
     ],
