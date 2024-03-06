@@ -14,7 +14,7 @@ abstract class Facade
     /**
      * SlimPHP application instance.
      *
-     * @var Slim\App
+     * @var \Slim\App
      */
     protected static $app;
 

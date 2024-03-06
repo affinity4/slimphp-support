@@ -22,7 +22,7 @@ final class FacadeTest extends TestCase
 
     public function testFacadeCallsUnderlyingObject()
     {
-        $app = \DI\Bridge\Slim\Bridge::create();
+        $app = Bridge::create();
         $container = $app->getContainer();
         $container->set('foo', function () {
             return new StubClass();

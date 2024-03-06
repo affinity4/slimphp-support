@@ -5,18 +5,16 @@ namespace SlimFacades\Facades;
 use SlimFacades\Support\Facade;
 
 /**
- * @method static mixed get(string $id)
- * @method static bool has(string $id)
- * @method static void set(string $name, mixed $value)
+ * @method static \Psr\Http\Message\ResponseFactoryInterface createResponse(int $code = 200, string $reasonPhrase = '')
  */
-class Container extends Facade
+class ResponseFactory extends Facade
 {
     /**
      * @inheritDoc
      */
     public static function getFacadeRoot()
     {
-        return static::$app->getContainer();
+        return static::$app->getResponseFactory();
     }
 
     /**
@@ -24,6 +22,6 @@ class Container extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'container';
+        return 'response-factory';
     }
 }

@@ -10,16 +10,23 @@
             "homepage": "https://luke-watts.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "SlimFacades\\": "src/"
+        },
+        "files": [
+            "./src/Support/helpers.php"
+        ]
+    },
+    "require": {
+        "php": "^8.1",
+        "psr/http-factory": "^1.0"
+    },
     "require-dev": {
         "slim/slim": "^4.0",
         "phpunit/phpunit": "^10",
         "guzzlehttp/psr7": "^2",
         "php-di/php-di": "^7.0",
         "php-di/slim-bridge": "^3.4"
-    },
-    "autoload": {
-        "psr-4": {
-            "SlimFacades\\": "src/"
-        }
     }
 }

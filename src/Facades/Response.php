@@ -2,21 +2,21 @@
 
 namespace SlimFacades\Facades;
 
+use SlimFacades\Http\Response as HttpResponse;
 use SlimFacades\Support\Facade;
 
 /**
- * @method static mixed get(string $id)
- * @method static bool has(string $id)
- * @method static void set(string $name, mixed $value)
+ * @method static \Psr\Http\Message\ResponseInterface get()
+ * @method static \SlimFacades\Http\Response json(array $data)
  */
-class Container extends Facade
+class Response extends Facade
 {
     /**
      * @inheritDoc
      */
     public static function getFacadeRoot()
     {
-        return static::$app->getContainer();
+        return new HttpResponse();
     }
 
     /**
@@ -24,6 +24,6 @@ class Container extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'container';
+        return 'response';
     }
 }
