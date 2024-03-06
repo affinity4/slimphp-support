@@ -82,7 +82,7 @@ App::get('/', function ($request) {
 });
 ```
 
-#### A JSON Response
+#### Standard JSON Response
 
 ```php
 App::get('/', function ($request) {
