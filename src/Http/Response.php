@@ -18,10 +18,9 @@ class Response
      */
     public function __construct(protected $content = '', protected $statusCode = 200)
     {
-        $response = ResponseFactory::createResponse();
-
-        $response->getBody()->write($this->content);
-        $this->response = $response->withStatus($this->statusCode);
+        $this->response = tap(ResponseFactory::createResponse(), function ($response) {
+            $response->getBody()->write($this->content);
+        })->withStatus($this->statusCode);
     }
 
     /**
@@ -42,11 +41,10 @@ class Response
      */
     public function json(array $data): self
     {
-        $payload = json_encode($data);
-        $response = $this->get();
-        $response->getBody()->write($payload);
-        
-        $this->response = $response->withHeader('Content-Type', 'application/json');
+        $this->response = tap($this->get(), function($response) use ($data) {
+            $payload = json_encode($data);
+            $response->getBody()->write($payload);
+        })->withHeader('Content-Type', 'application/json');
 
         return $this;
     }

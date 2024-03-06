@@ -82,10 +82,18 @@ App::get('/', function ($request) {
 });
 ```
 
-#### JSON Response
+#### Standard JSON Response
 
 ```php
 App::get('/', function ($request) {
     return response()->json(['data' => 'payload'])->get();
+});
+```
+
+### tap()
+
+```php
+return tap(new Psr7Response(), function ($response) {
+    $response->getBody()->write('foo');
 });
 ```
