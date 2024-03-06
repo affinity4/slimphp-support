@@ -97,3 +97,37 @@ return tap(new Psr7Response(), function ($response) {
     $response->getBody()->write('foo');
 });
 ```
+
+## Traits
+
+### SlimFacades\Traits\Tappable
+
+```php
+use SlimFacades\Support\Traits\Tappable;
+
+class TappableClass
+{
+    use Tappable;
+
+    private $name;
+
+    public static function make()
+    {
+        return new static;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+}
+
+$name = TappableClass::make()->tap(function ($tappable) {
+    $tappable->setName('MyName');
+})->getName();
+```
