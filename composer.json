@@ -1,6 +1,6 @@
 {
     "name": "affinity4/slimphp-facades",
-    "description": "Add Laravel style facades and helper functions to any SlimPHP app",
+    "description": "Add Laravel style facades, traits and helper functions to any SlimPHP app",
     "type": "library",
     "license": "MIT",
     "authors": [
