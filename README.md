@@ -276,6 +276,7 @@ They are useful for multi-step data processing, http middleware, database queryi
 Here's an example of how to use it to validation, filter, transform and save an incoming get request.
 
 ```php
+// 1. Prepare the request
 class PrepareRequest
 {
     public function handle($request, $next)
@@ -284,41 +285,49 @@ class PrepareRequest
         $query = $uri->getQuery(); // Get the query string (e.g., "param1=value1&param2=value2")
         parse_str($query, $queryParams); // Parse the query string into an array
 
-        return $next($request);
+        return $next($queryParams);
     }
 }
 
-// 1. Create a custom pipe for validation
+// 2. Validate the request
 class ValidateRequest
 {
-    public function handle($request, $next)
+    public function handle($data, $next)
     {   
-        // Validate parameters (e.g., check if 'name', 'age', and 'email' exist)
+        // Validate parameters 
+        // (e.g. check if 'email' and 'password' exist, validate 'email' and 'password' etc)
 
-        return $next($request);
+        // If invalid then $data['valid'] = false, else $data['valid'] = true;
+
+        return $next($data);
     }
 }
 
-// 2. Create a pipe for data transformation
+// 2. Transform the request
 class TransformRequest
 {
-    public function handle($request, $next)
+    public function handle($data, $next)
     {
-        // Capitalize the 'name' parameter
-        $request['name'] = ucfirst($request['name']);
+        $data['password'] = bcrypt($data['password']);
 
-        return $next($request);
+        return $next($data);
     }
 }
 
-// 3. Create a pipe for Saving the data
+// 3. Save the data, or log errors
 class SaveRequest
 {
-    public function handle($request, $next)
+    public function handle($data, $next)
     {
-        // Save to database
+        if (!$data['valid']) {
+            // Log errors...
 
-        return $next($request);
+            return $next($data);
+        }
+
+        $data['saved'] = true;
+
+        return $next($data);
     }
 }
 
@@ -335,7 +344,7 @@ App::get('/', function ($request) {
         ->thenReturn();
 
     // 5. Respond with the processed data
-    return response()->json(['message' => 'Request processed successfully', 'result' => $result])->get();
+    return response()->json(['result' => $result])->get();
 });
 ```
 
