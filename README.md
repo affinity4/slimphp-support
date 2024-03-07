@@ -1,6 +1,6 @@
 # SlimPHP Facades
 
-Add Laravel style facades and helper functions to any SlimPHP app.
+Add Laravel style facades, traits and helper functions to any SlimPHP app
 
 ## Installation
 
@@ -100,7 +100,7 @@ return tap(new Psr7Response(), function ($response) {
 
 ## Traits
 
-### SlimFacades\Traits\Tappable
+### Tappable
 
 ```php
 use SlimFacades\Support\Traits\Tappable;
@@ -135,7 +135,7 @@ $name = TappableClass::make()->tap(function ($tappable) {
 $name = TappableClass::make()->tap()->setName('MyName')->getName()
 ```
 
-### Support\Traits\Macroable
+### Macroable
 
 Macros allow you to add methods to classes dynamically (without having to modify their code).
 
@@ -179,4 +179,88 @@ Then we can get our `MacroableResponse` instance from the container however you 
 App::get('/', function () {
    return Container::get('response')->write('Macro!');
 });
+```
+
+### Conditionable
+
+Allows to conditionally chain functionality.
+
+For example, let's imagine we have a standard PSR-11 Container, which has a the bare minimum PSR-11 compliant methods, `set`, `get` and `has`. The `set` method adds a service to the container, `get` returns the service and `has` checks an service is in the container.
+
+We have a `Logger` we want to add to the container, but it requires a `FileDriver` to be in the container already, or else we need to also add the `FileDriver` class to the container first.
+
+We might then have some bootstrapping logic like so:
+
+```php
+$container = new Container;
+
+if (!$container->has('FileDriver')) {
+    $container->set('FileDriver', fn() => new FileDriver);
+}
+
+if (!$container->has('Logger')) {
+    $container->set('Logger', function ($container) {
+        $logger = new Logger;
+        $logger->setDriver($container->get('FileDriver'));
+        return $logger;
+    });
+}
+```
+
+However, if we extends our `Container` class and add the `Conditionable` trait, we can instead use the `unless` method to do this check with a fluent interface:
+
+__NOTE: To check the opposite, there is also `when`.__
+
+```php
+class ConditionableContainer extends Container
+{
+    use Conditionable;
+}
+
+$container = new ConditionableContainer;
+$container
+    ->unless(
+        fn($container) => $container->has('FileDriver'),
+        function ($container) {
+            $container->set('FileDriver', fn() => new FileDriver);
+        }
+    )->unless(
+        fn($container) => $container->has('Logger'), 
+        function ($container) {
+            $container->set('Logger', function ($container) {
+                $logger = new Logger;
+                $logger->setDriver($container->get('FileDriver'));
+                return $logger;
+            });
+        }
+    );
+```
+
+You're probably thinking this is still quite bit verbose, so to clean this up you could create `invokable` ServiceFactory classes for all of your `$container->set` logic.__
+
+```php
+class FileDriverServiceFactory
+{
+    public function __invoke($container)
+    {
+        $container->set('FileDriver', fn() => new FileDriver);
+    }
+}
+
+class LoggerServiceFactory
+{
+    public function __invoke($cotnainer)
+    {
+        $logger = new Logger;
+        $logger->setDriver($container->get('FileDriver'));
+        return $logger;
+    }
+}
+
+$container = new ConditionableContainer;
+
+// or, using unless, instead of when
+$container
+    ->unless(fn($container) => $container->has('FileDriver'), FileDriverServiceFactory($container))
+    ->unless(fn($container) => $container->has('Logger'), LoggerServiceFactory($container));
 ```
