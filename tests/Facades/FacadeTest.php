@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace SlimFacades\Tests\Facades;
+
 use DI\Bridge\Slim\Bridge;
 use PHPUnit\Framework\TestCase;
 use SlimFacades\Support\Facade;
@@ -17,7 +19,7 @@ final class FacadeTest extends TestCase
     {
         $app = AppFactory::create();
         Facade::setFacadeApplication($app);
-        $this->assertInstanceOf(Slim\App::class, Facade::getFacadeApplication());
+        $this->assertInstanceOf(\Slim\App::class, Facade::getFacadeApplication());
     }
 
     public function testFacadeCallsUnderlyingObject()

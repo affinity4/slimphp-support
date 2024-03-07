@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace SlimFacades\Tests\Support\Traits;
+
 use BadMethodCallException;
 use SlimFacades\Support\Traits\Macroable;
 use PHPUnit\Framework\TestCase;

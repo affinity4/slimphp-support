@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace SlimFacades\Tests\Support\Traits;
+
 use SlimFacades\Support\HigherOrderWhenProxy;
 use PHPUnit\Framework\TestCase;
 use SlimFacades\Support\Traits\Conditionable;

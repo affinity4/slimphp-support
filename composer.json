@@ -18,6 +18,11 @@
             "./src/Support/helpers.php"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "SlimFacades\\Tests\\": "tests/"
+        }
+    },
     "require": {
         "php": "^8.1",
         "psr/http-factory": "^1.0"

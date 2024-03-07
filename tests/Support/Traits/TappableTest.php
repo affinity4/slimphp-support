@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace SlimFacades\Tests\Support\Traits;
+
 use SlimFacades\Support\Traits\Tappable;
 use PHPUnit\Framework\TestCase;
 

@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace SlimFacades\Tests\Support;
+
 use DI\Bridge\Slim\Bridge as SlimApp;
 use GuzzleHttp\Psr7\Response as Psr7Response;
 use PHPUnit\Framework\TestCase;

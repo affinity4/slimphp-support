@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace SlimFacades\Tests\Facades;
+
 use DI\Bridge\Slim\Bridge;
 use PHPUnit\Framework\TestCase;
 use SlimFacades\Facades\App;

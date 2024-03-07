@@ -264,3 +264,79 @@ $container
     ->unless(fn($container) => $container->has('FileDriver'), FileDriverServiceFactory($container))
     ->unless(fn($container) => $container->has('Logger'), LoggerServiceFactory($container));
 ```
+
+## Pipeline Support class
+
+Pipelines allow for a middleware-like interface to chain processing of tasks.
+
+A pipeline processes each task, passed the returned value to the next process in the chain.
+
+They are useful for multi-step data processing, http middleware, database querying and validation tasks.
+
+Here's an example of how to use it to validation, filter, transform and save an incoming get request.
+
+```php
+class PrepareRequest
+{
+    public function handle($request, $next)
+    {
+        $uri = $request->getUri();
+        $query = $uri->getQuery(); // Get the query string (e.g., "param1=value1&param2=value2")
+        parse_str($query, $queryParams); // Parse the query string into an array
+
+        return $next($request);
+    }
+}
+
+// 1. Create a custom pipe for validation
+class ValidateRequest
+{
+    public function handle($request, $next)
+    {   
+        // Validate parameters (e.g., check if 'name', 'age', and 'email' exist)
+
+        return $next($request);
+    }
+}
+
+// 2. Create a pipe for data transformation
+class TransformRequest
+{
+    public function handle($request, $next)
+    {
+        // Capitalize the 'name' parameter
+        $request['name'] = ucfirst($request['name']);
+
+        return $next($request);
+    }
+}
+
+// 3. Create a pipe for Saving the data
+class SaveRequest
+{
+    public function handle($request, $next)
+    {
+        // Save to database
+
+        return $next($request);
+    }
+}
+
+App::get('/', function ($request) {
+    // 4. Define the pipeline
+    $result = (new Pipeline(App::getContainer()))
+        ->send($request)
+        ->through([
+            PrepareRequest::class,
+            ValidateRequest::class,
+            TransformRequest::class,
+            SaveRequest::class,
+        ])
+        ->thenReturn();
+
+    // 5. Respond with the processed data
+    return response()->json(['message' => 'Request processed successfully', 'result' => $result])->get();
+});
+```
+
+This way our controller stays clean, and readable, and each responsibility is separated to it's own class to make maintainance easier in the long run. This would also make testing easier, as you could test the individual classes, and also the overall pipeline result, without needing to test the controller itself.
