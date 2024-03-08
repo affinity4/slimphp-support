@@ -325,6 +325,58 @@ DumpableCollection {#69 ▼
 
 __NOTE: You can also pass `...$args` to the dd and dump methods as normal if you want to append additional dump data.__
 
+### ForwardsCalls
+
+Proxy calls to missing methods in current class, to another target class. Useful when you cannot inherit or modify a class but you want to add some functionality to it (other than overloading any of it's methods of course).
+
+Here's an example where we have a base `App` class, but it is a final class so we cannot inherit it. So instead, we create an `AppProxy` class which allows us to say that "any method that gets called on `AppProxy` which doesn't exist in `AppProxy`, we use `App` instead"
+
+```php
+class AppProxy
+{
+    use ForwardsCalls;
+
+    public function __call($method, $parameters)
+    {
+        return $this->forwardCallTo(new App, $method, $parameters);
+    }
+
+    public function addSomeServiceDirectlyToContainer()
+    {
+        $this->getContainer()->set('some-service', function ($container) {
+            return new SomeService($container->get('some-dependency-already-in-container'));
+        });
+    }
+}
+
+final class App
+{
+    public function __construct(
+        protected ContainerInterface $container
+    ) {}
+
+    public function getContainer()
+    {
+        return $this->container;
+    }
+}
+```
+
+Then we can use `getContainer` (or any other public methods/properties) from `App` by calling out `AppProxy`
+
+```php
+$appProxy = new AppProxy;
+$app->addSomeServiceDirectlyToContainer();
+$container = $appProxy->getContainer(); 
+dd($congainer->get('some-service'));
+/*
+SomeService {# 46 
+    # some_service_already_in_container: someServiceAlreadyInContainer {# 30 }
+    ...
+}
+*/
+```
+
 ## Pipeline Support class
 
 Pipelines allow for a middleware-like interface to chain processing of tasks.
