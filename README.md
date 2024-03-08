@@ -302,7 +302,8 @@ class Collection
 }
 
 $collection = new Collection([
-    // data...
+    "one" => 1,
+    "two" => 2
 ]);
 
 // Debug the collection...
@@ -310,6 +311,19 @@ $collection->dump();
 // Or
 $collection->dd();
 ```
+
+Would result in:
+
+```txt
+DumpableCollection {#69 ▼
+  #collection: array:1 [▼
+    "one" => 1,
+    "two" => 2
+  ]
+}
+```
+
+__NOTE: You can also pass `...$args` to the dd and dump methods as normal if you want to append additional dump data.__
 
 ## Pipeline Support class
 
