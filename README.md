@@ -70,6 +70,28 @@ App::get('/', function($request) {
 });
 ```
 
+### Pipeline Facade
+
+__NOTE: See [Pipeline Support Class](#pipeline-support-class) section for a detailed example.__
+
+```php
+App::get('/', function ($request) {
+    // 4. Define the pipeline
+    $result = (new Pipeline(App::getContainer()))
+        ->send($request)
+        ->through([
+            PrepareRequest::class,
+            ValidateRequest::class,
+            TransformRequest::class,
+            SaveRequest::class,
+        ])
+        ->thenReturn();
+
+    // 5. Respond with the processed data
+    return response()->json(['result' => $result])->get();
+});
+```
+
 ## Helper functions
 
 ### response()
