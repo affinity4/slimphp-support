@@ -24,7 +24,7 @@ final class PipelineTest extends TestCase
     }
     
 
-    public function testPipelineMethodsExist()
+    public function testIsInstanceOfPipeline()
     {
         $this->assertInstanceOf(PipelineContract::class, Pipeline::getFacadeRoot());
     }

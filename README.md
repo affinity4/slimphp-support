@@ -371,3 +371,62 @@ App::get('/', function ($request) {
 ```
 
 This way our controller stays clean, and readable, and each responsibility is separated to it's own class to make maintainance easier in the long run. This would also make testing easier, as you could test the individual classes, and also the overall pipeline result, without needing to test the controller itself.
+
+## Hub
+
+A `Hub` class, is a way to store a similar group of pipelines so they can be retrieved and executed from the same object.
+
+```php
+$app = AppFactory::create();
+$userWorkflows = new Hub($app->getContainer());
+
+// By default register the user
+$userWorkflows->defaults(function ($pipeline, $passable) {
+    return $pipeline->send($passable)
+        ->through([
+            ValidateRequest::class,
+            RegisterUser::class,
+            SendRegistrationEmail::class
+        ])
+        ->thenReturn();
+});
+
+$userWorkflows->pipeline('user-requested-reset-password', function ($pipeline, $passable) {
+    return $pipeline->send($passable)
+        ->through([
+            ValidateRequestData::class,
+            ValidateUser::class,
+            EmailResetPasswordLink::class
+        ])
+        ->thenReturn();
+});
+
+$userWorkflows->pipeline('user-enabled-2fa', function ($pipeline, $passable) {
+    return $pipeline->send($passable)
+        ->through([
+            ValidateRequestData::class,
+            ValidateUser::class,
+            Handle2faSetup::class
+        ])
+        ->thenReturn();
+});
+
+// Then we can call them easily like so
+App::post('/user/register', function($request) use ($userWorkflows) {
+    $result = $userWorkflows->pipe($request); // Since our default is our register pipe we only need the first arg
+
+    return response()->json(['data' => $result])->get();
+});
+
+App::post('/user/password-reset', function($request) use ($userWorkflows) {
+    $result = $userWorkflows->pipe($request, 'user-requested-password-reset');
+
+    return response()->json(['data' => $result])->get();
+});
+
+App::post('/user/enable-2fa', function($request) use ($userWorkflows) {
+    $result = $userWorkflows->pipe($request, 'user-enabled-2fa');
+
+    return response()->json(['data' => $result])->get();
+});
+```
