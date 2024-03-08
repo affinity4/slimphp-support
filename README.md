@@ -287,6 +287,30 @@ $container
     ->unless(fn($container) => $container->has('Logger'), LoggerServiceFactory($container));
 ```
 
+### Dumpable
+
+Adds `dump` and `dd` methods to any class
+
+```php
+class Collection
+{
+    use Dumpable;
+
+    public function __constructor(
+        protected array $collection = []
+    ) {}
+}
+
+$collection = new Collection([
+    // data...
+]);
+
+// Debug the collection...
+$collection->dump();
+// Or
+$collection->dd();
+```
+
 ## Pipeline Support class
 
 Pipelines allow for a middleware-like interface to chain processing of tasks.

@@ -25,7 +25,8 @@
     },
     "require": {
         "php": "^8.1",
-        "psr/http-factory": "^1.0"
+        "psr/http-factory": "^1.0",
+        "symfony/var-dumper": "^6.4"
     },
     "require-dev": {
         "slim/slim": "^4.0",
