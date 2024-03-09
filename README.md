@@ -1,28 +1,28 @@
-# SlimPHP Facades
+# SlimPHP Support
 
 Add Laravel style facades, traits and helper functions to any SlimPHP app
 
 ## Installation
 
 ```bash
-composer require affinity4/slimphp-facades
+composer require affinity4/slimphp-support
 ```
 
 ## Usage
 
 ### Setting up Facades in your Application
 
-To use SlimPHP Facades, you first need to create your Slim app as normal, with either `Slim\App\AppFactory` or `DI\Container\Slim\Bridge`. Then you'll need to call `SlimFacades\Support\Facade::setFacadeApplication($app)`:
+To use SlimPHP Facades, you first need to create your Slim app as normal, with either `Slim\App\AppFactory` or `DI\Container\Slim\Bridge`. Then you'll need to call `Affinity4\SlimSupport\Support\Facade::setFacadeApplication($app)`:
 
 ```php
 use Slim\Factory\AppFactory;
-use SlimFacades\Support\Facade;
+use Affinity4\SlimSupport\Support\Facade;
 
 $app = AppFactory::createFromContainer();
 Facade::setFacadeApplication($app);
 ```
 
-You will now have access to all SlimFacades, as well as the helper function (e.g. `response()`)
+You will now have access to all Facades, as well as the helper function (e.g. `response()`)
 
 ### App Facade
 
@@ -32,7 +32,7 @@ Facade for `Slim\App`:
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Factory\AppFactory;
-use SlimFacades\Support\Facade;
+use Affinity4\SlimSupport\Support\Facade;
 
 $app = AppFactory::createFromContainer();
 Facade::setFacadeApplication($app);
@@ -47,7 +47,7 @@ App::run();
 ### Container
 
 ```php
-use SlimFacades\Facades\Container;
+use Affinity4\SlimSupport\Facades\Container;
 
 Container::set('some-service', function () {
     return SomeService();
@@ -63,7 +63,7 @@ if (Container::has('some-service')) {
 #### JSON Response
 
 ```php
-use SlimFacades\Facades\Container;
+use Affinity4\SlimSupport\Facades\Container;
 
 App::get('/', function($request) {
     return Response::json(['test' => 'payload'])->get();
@@ -125,7 +125,7 @@ return tap(new Psr7Response(), function ($response) {
 ### Tappable
 
 ```php
-use SlimFacades\Support\Traits\Tappable;
+use Affinity4\SlimSupport\Support\Traits\Tappable;
 
 class TappableClass
 {
@@ -176,7 +176,7 @@ Instead you just want to call a write method directly from the `$response` insta
 
 ```php
 use GuzzleHttp\Psr7\Response;
-use SlimFacades\Support\Traits\Macroable;
+use Affinity4\SlimSupport\Support\Traits\Macroable;
 
 class MacroableResponse extends Response
 {
@@ -187,7 +187,7 @@ class MacroableResponse extends Response
 Then we need to add `MacroableResponse` to our container, so we are always dealing with the same instance (not all instances will have the "macroed" methods).
 
 ```php
-use SlimFacades\Facades\Container;
+use Affinity4\SlimSupport\Facades\Container;
 // ... above code here
 
 Container::set('response', function () {

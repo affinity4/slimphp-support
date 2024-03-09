@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Tests\Support;
+namespace Affinity4\SlimSupport\Tests\Support;
 
 use DI\Bridge\Slim\Bridge as SlimApp;
 use GuzzleHttp\Psr7\Response as Psr7Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-use SlimFacades\Http\Response;
-use SlimFacades\Support\Facade;
-use SlimFacades\Support\HigherOrderTapProxy;
+use Affinity4\SlimSupport\Http\Response;
+use Affinity4\SlimSupport\Support\Facade;
+use Affinity4\SlimSupport\Support\HigherOrderTapProxy;
 
 final class HelperFunctionsTest extends TestCase
 {

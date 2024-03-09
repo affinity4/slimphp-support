@@ -1,5 +1,5 @@
 {
-    "name": "affinity4/slimphp-facades",
+    "name": "affinity4/slimphp-support",
     "description": "Add Laravel style facades, traits and helper functions to any SlimPHP app",
     "type": "library",
     "license": "MIT",
@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "SlimFacades\\": "src/"
+            "Affinity4\\SlimSupport\\": "src/"
         },
         "files": [
             "./src/Support/helpers.php"
@@ -20,7 +20,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "SlimFacades\\Tests\\": "tests/"
+            "Affinity4\\SlimSupport\\Tests\\": "tests/"
         }
     },
     "require": {

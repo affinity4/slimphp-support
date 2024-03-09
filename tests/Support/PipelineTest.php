@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Tests\Support;
+namespace Affinity4\SlimSupport\Tests\Support;
 
 use DI\Bridge\Slim\Bridge as App;
 use PHPUnit\Framework\TestCase;
-use SlimFacades\Support\Pipeline;
+use Affinity4\SlimSupport\Support\Pipeline;
 
 class PipelineTest extends TestCase
 {

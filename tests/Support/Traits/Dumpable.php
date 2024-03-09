@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Support\Traits;
+namespace Affinity4\SlimSupport\Support\Traits;
 
 trait Dumpable
 {

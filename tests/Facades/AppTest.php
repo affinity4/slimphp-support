@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Tests\Facades;
+namespace Affinity4\SlimSupport\Tests\Facades;
 
 use DI\Bridge\Slim\Bridge;
 use DI\Container;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
-use SlimFacades\Facades\App;
-use SlimFacades\Support\Facade;
+use Affinity4\SlimSupport\Facades\App;
+use Affinity4\SlimSupport\Support\Facade;
 
 final class AppTest extends TestCase
 {

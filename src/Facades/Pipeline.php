@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Facades;
+namespace Affinity4\SlimSupport\Facades;
 
-use SlimFacades\Support\Facade;
-use SlimFacades\Support\Pipeline as PipelineBase;
+use Affinity4\SlimSupport\Support\Facade;
+use Affinity4\SlimSupport\Support\Pipeline as PipelineBase;
 
 /**
- * @method \SlimFacades\Support\Pipeline send(mixed $passable)
- * @method \SlimFacades\Support\Pipeline through(array|mixed $pipes)
- * @method \SlimFacades\Support\Pipeline pipe(array|mixed $pipes)
- * @method \SlimFacades\Support\Pipeline via(string $method)
- * @method \SlimFacades\Support\Pipeline then(\Closure $destination)
+ * @method \Affinity4\SlimSupport\Support\Pipeline send(mixed $passable)
+ * @method \Affinity4\SlimSupport\Support\Pipeline through(array|mixed $pipes)
+ * @method \Affinity4\SlimSupport\Support\Pipeline pipe(array|mixed $pipes)
+ * @method \Affinity4\SlimSupport\Support\Pipeline via(string $method)
+ * @method \Affinity4\SlimSupport\Support\Pipeline then(\Closure $destination)
  * @method mixed thenReturn()
- * @method \SlimFacades\Support\PipelineBase getContainer()
- * @method \SlimFacades\Support\PipelineBase setContainer(ContainerInterface $container)
+ * @method \Affinity4\SlimSupport\Support\PipelineBase getContainer()
+ * @method \Affinity4\SlimSupport\Support\PipelineBase setContainer(ContainerInterface $container)
  */
 class Pipeline extends Facade
 {

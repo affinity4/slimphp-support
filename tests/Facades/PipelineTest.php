@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Tests\Facades;
+namespace Affinity4\SlimSupport\Tests\Facades;
 
 use DI\Bridge\Slim\Bridge;
 use PHPUnit\Framework\TestCase;
-use SlimFacades\Contracts\Pipeline as PipelineContract;
-use SlimFacades\Facades\Pipeline;
-use SlimFacades\Support\Facade;
+use Affinity4\SlimSupport\Contracts\Pipeline as PipelineContract;
+use Affinity4\SlimSupport\Facades\Pipeline;
+use Affinity4\SlimSupport\Support\Facade;
 
 final class PipelineTest extends TestCase
 {

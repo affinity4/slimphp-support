@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Facades;
+namespace Affinity4\SlimSupport\Facades;
 
-use SlimFacades\Support\Facade;
+use Affinity4\SlimSupport\Support\Facade;
 
 /**
  * @method static mixed get(string $id)

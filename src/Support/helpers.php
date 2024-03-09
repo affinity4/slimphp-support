@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
-use SlimFacades\Http\Response;
-use SlimFacades\Support\HigherOrderTapProxy;
+use Affinity4\SlimSupport\Http\Response;
+use Affinity4\SlimSupport\Support\HigherOrderTapProxy;
 
 if (!function_exists('response')) {
     /**

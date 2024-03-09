@@ -1,8 +1,8 @@
 <?php
 
-namespace SlimFacades\Tests\Support;
+namespace Affinity4\SlimSupport\Tests\Support;
 
-use SlimFacades\Support\Traits\ForwardsCalls;
+use Affinity4\SlimSupport\Support\Traits\ForwardsCalls;
 use PHPUnit\Framework\TestCase;
 
 class ForwardsCallsTest extends TestCase
@@ -24,7 +24,7 @@ class ForwardsCallsTest extends TestCase
     public function testMissingForwardedCallThrowsCorrectError()
     {
         $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage('Call to undefined method SlimFacades\Tests\Support\ForwardsCallsOne::missingMethod()');
+        $this->expectExceptionMessage('Call to undefined method Affinity4\SlimSupport\Tests\Support\ForwardsCallsOne::missingMethod()');
 
         (new ForwardsCallsOne)->missingMethod('foo', 'bar');
     }
@@ -32,7 +32,7 @@ class ForwardsCallsTest extends TestCase
     public function testMissingAlphanumericForwardedCallThrowsCorrectError()
     {
         $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage('Call to undefined method SlimFacades\Tests\Support\ForwardsCallsOne::this1_shouldWork_too()');
+        $this->expectExceptionMessage('Call to undefined method Affinity4\SlimSupport\Tests\Support\ForwardsCallsOne::this1_shouldWork_too()');
 
         (new ForwardsCallsOne)->this1_shouldWork_too('foo', 'bar');
     }
@@ -40,7 +40,7 @@ class ForwardsCallsTest extends TestCase
     public function testNonForwardedErrorIsNotTamperedWith()
     {
         $this->expectException(\Error::class);
-        $this->expectExceptionMessage('Call to undefined method SlimFacades\Tests\Support\ForwardsCallsBase::missingMethod()');
+        $this->expectExceptionMessage('Call to undefined method Affinity4\SlimSupport\Tests\Support\ForwardsCallsBase::missingMethod()');
 
         (new ForwardsCallsOne)->baseError('foo', 'bar');
     }
@@ -48,7 +48,7 @@ class ForwardsCallsTest extends TestCase
     public function testThrowBadMethodCallException()
     {
         $this->expectException(\BadMethodCallException::class);
-        $this->expectExceptionMessage('Call to undefined method SlimFacades\Tests\Support\ForwardsCallsOne::test()');
+        $this->expectExceptionMessage('Call to undefined method Affinity4\SlimSupport\Tests\Support\ForwardsCallsOne::test()');
 
         (new ForwardsCallsOne)->throwTestException('test');
     }

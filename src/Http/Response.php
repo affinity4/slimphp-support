@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Http;
+namespace Affinity4\SlimSupport\Http;
 
-use SlimFacades\Facades\ResponseFactory;
+use Affinity4\SlimSupport\Facades\ResponseFactory;
 use Psr\Http\Message\ResponseInterface;
 
 class Response

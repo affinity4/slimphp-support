@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Tests\Facades;
+namespace Affinity4\SlimSupport\Tests\Facades;
 
 use DI\Bridge\Slim\Bridge;
 use PHPUnit\Framework\TestCase;
-use SlimFacades\Support\Facade;
+use Affinity4\SlimSupport\Support\Facade;
 use Slim\Factory\AppFactory;
 
 final class FacadeTest extends TestCase

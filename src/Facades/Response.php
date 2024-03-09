@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Facades;
+namespace Affinity4\SlimSupport\Facades;
 
-use SlimFacades\Http\Response as HttpResponse;
-use SlimFacades\Support\Facade;
+use Affinity4\SlimSupport\Http\Response as HttpResponse;
+use Affinity4\SlimSupport\Support\Facade;
 
 /**
  * @method static \Psr\Http\Message\ResponseInterface get()
- * @method static \SlimFacades\Http\Response json(array $data)
+ * @method static \Affinity4\SlimSupport\Http\Response json(array $data)
  */
 class Response extends Facade
 {

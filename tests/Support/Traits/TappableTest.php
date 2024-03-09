@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Tests\Support\Traits;
+namespace Affinity4\SlimSupport\Tests\Support\Traits;
 
-use SlimFacades\Support\Traits\Tappable;
+use Affinity4\SlimSupport\Support\Traits\Tappable;
 use PHPUnit\Framework\TestCase;
 
 class TappableTest extends TestCase

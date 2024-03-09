@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Support;
+namespace Affinity4\SlimSupport\Support;
 
 abstract class Facade
 {

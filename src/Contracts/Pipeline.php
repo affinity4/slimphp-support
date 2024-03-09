@@ -1,6 +1,6 @@
 <?php
 
-namespace SlimFacades\Contracts;
+namespace Affinity4\SlimSupport\Contracts;
 
 use Closure;
 

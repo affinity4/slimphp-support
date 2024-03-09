@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Tests\Facades;
+namespace Affinity4\SlimSupport\Tests\Facades;
 
-use SlimFacades\Facades\Response;
+use Affinity4\SlimSupport\Facades\Response;
 use DI\Bridge\Slim\Bridge;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-use SlimFacades\Http\Response as HttpResponse;
-use SlimFacades\Support\Facade;
+use Affinity4\SlimSupport\Http\Response as HttpResponse;
+use Affinity4\SlimSupport\Support\Facade;
 
 final class ResponseTest extends TestCase
 {
@@ -24,7 +24,7 @@ final class ResponseTest extends TestCase
         unset($this->app);
     }
 
-    public function testResponseIsInstanceOfSlimFacadesHttpResponse()
+    public function testResponseIsInstanceOfSlimSupportHttpResponse()
     {
         $response = Response::getFacadeRoot();
 
@@ -39,7 +39,7 @@ final class ResponseTest extends TestCase
     }
 
     /**
-     * @depends testResponseIsInstanceOfSlimFacadesHttpResponse
+     * @depends testResponseIsInstanceOfSlimSupportHttpResponse
      *
      * @return void
      */

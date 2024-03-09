@@ -1,11 +1,6 @@
 <?php
 
-namespace SlimFacades\Support\Traits;
-
-use BadMethodCallException;
-use Closure;
-use ReflectionClass;
-use ReflectionMethod;
+namespace Affinity4\SlimSupport\Support\Traits;
 
 trait Macroable
 {
@@ -39,8 +34,8 @@ trait Macroable
      */
     public static function mixin($mixin, $replace = true)
     {
-        $methods = (new ReflectionClass($mixin))->getMethods(
-            ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED
+        $methods = (new \ReflectionClass($mixin))->getMethods(
+            \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED
         );
 
         foreach ($methods as $method) {
@@ -83,14 +78,14 @@ trait Macroable
     public static function __callStatic($method, $parameters)
     {
         if (! static::hasMacro($method)) {
-            throw new BadMethodCallException(sprintf(
+            throw new \BadMethodCallException(sprintf(
                 'Method %s::%s does not exist.', static::class, $method
             ));
         }
 
         $macro = static::$macros[$method];
 
-        if ($macro instanceof Closure) {
+        if ($macro instanceof \Closure) {
             $macro = $macro->bindTo(null, static::class);
         }
 
@@ -109,14 +104,14 @@ trait Macroable
     public function __call($method, $parameters)
     {
         if (! static::hasMacro($method)) {
-            throw new BadMethodCallException(sprintf(
+            throw new \BadMethodCallException(sprintf(
                 'Method %s::%s does not exist.', static::class, $method
             ));
         }
 
         $macro = static::$macros[$method];
 
-        if ($macro instanceof Closure) {
+        if ($macro instanceof \Closure) {
             $macro = $macro->bindTo($this, static::class);
         }
 

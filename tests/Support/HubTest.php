@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Tests\Support;
+namespace Affinity4\SlimSupport\Tests\Support;
 
 use DI\Bridge\Slim\Bridge;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
-use SlimFacades\Support\Hub;
+use Affinity4\SlimSupport\Support\Hub;
 
 final class HubTest extends TestCase
 {

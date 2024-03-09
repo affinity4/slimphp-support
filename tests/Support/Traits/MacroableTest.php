@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Tests\Support\Traits;
+namespace Affinity4\SlimSupport\Tests\Support\Traits;
 
 use BadMethodCallException;
-use SlimFacades\Support\Traits\Macroable;
+use Affinity4\SlimSupport\Support\Traits\Macroable;
 use PHPUnit\Framework\TestCase;
 
 class SupportMacroableTest extends TestCase

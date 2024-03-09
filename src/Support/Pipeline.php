@@ -1,10 +1,10 @@
 <?php
 
-namespace SlimFacades\Support;
+namespace Affinity4\SlimSupport\Support;
 
 use Psr\Container\ContainerInterface;
-use SlimFacades\Contracts\Pipeline as PipelineContract;
-use SlimFacades\Support\Traits\Conditionable;
+use Affinity4\SlimSupport\Contracts\Pipeline as PipelineContract;
+use Affinity4\SlimSupport\Support\Traits\Conditionable;
 
 class Pipeline implements PipelineContract
 {

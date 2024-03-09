@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace SlimFacades\Tests\Support\Traits;
+namespace Affinity4\SlimSupport\Tests\Support\Traits;
 
-use SlimFacades\Support\HigherOrderWhenProxy;
+use Affinity4\SlimSupport\Support\HigherOrderWhenProxy;
 use PHPUnit\Framework\TestCase;
-use SlimFacades\Support\Traits\Conditionable;
+use Affinity4\SlimSupport\Support\Traits\Conditionable;
 
 class ConditionableTest extends TestCase
 {

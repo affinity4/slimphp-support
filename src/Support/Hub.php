@@ -1,9 +1,9 @@
 <?php
 
-namespace SlimFacades\Support;
+namespace Affinity4\SlimSupport\Support;
 
 use Psr\Container\ContainerInterface;
-use SlimFacades\Support\Pipeline;
+use Affinity4\SlimSupport\Support\Pipeline;
 
 class Hub
 {

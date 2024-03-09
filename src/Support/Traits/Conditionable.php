@@ -1,9 +1,9 @@
 <?php
 
-namespace SlimFacades\Support\Traits;
+namespace Affinity4\SlimSupport\Support\Traits;
 
 use Closure;
-use SlimFacades\Support\HigherOrderWhenProxy;
+use Affinity4\SlimSupport\Support\HigherOrderWhenProxy;
 
 trait Conditionable
 {
