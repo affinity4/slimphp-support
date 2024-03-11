@@ -7,78 +7,119 @@ use PHPUnit\Framework\TestCase;
 
 class FluentTest extends TestCase
 {
-    public function testToArray()
+    public function testAttributesAreSetByConstructor()
     {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame(['foo' => 'bar'], $fluent->toArray());
+        $array = ['name' => 'Luke', 'age' => 39];
+        $fluent = new Fluent($array);
+
+        $refl = new \ReflectionObject($fluent);
+        $attributes = $refl->getProperty('attributes');
+
+        $this->assertEquals($array, $attributes->getValue($fluent));
+        $this->assertEquals($array, $fluent->getAttributes());
     }
 
-    public function testJsonSerialize()
+    public function testAttributesAreSetByConstructorGivenstdClass()
     {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame(['foo' => 'bar'], $fluent->jsonSerialize());
+        $array = ['name' => 'Luke', 'age' => 39];
+        $fluent = new Fluent((object) $array);
+
+        $refl = new \ReflectionObject($fluent);
+        $attributes = $refl->getProperty('attributes');
+
+        $this->assertEquals($array, $attributes->getValue($fluent));
+        $this->assertEquals($array, $fluent->getAttributes());
     }
 
-    public function testToJson()
+    public function testAttributesAreSetByConstructorGivenArrayIterator()
     {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame('{"foo":"bar"}', $fluent->toJson());
+        $array = ['name' => 'Luke', 'age' => 39];
+        $fluent = new Fluent(new FluentArrayIteratorStub($array));
+
+        $refl = new \ReflectionObject($fluent);
+        $attributes = $refl->getProperty('attributes');
+
+        $this->assertEquals($array, $attributes->getValue($fluent));
+        $this->assertEquals($array, $fluent->getAttributes());
     }
 
-    public function testGetAttributes()
+    public function testGetMethodReturnsAttribute()
     {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame(['foo' => 'bar'], $fluent->getAttributes());
+        $fluent = new Fluent(['name' => 'Luke']);
+
+        $this->assertSame('Luke', $fluent->get('name'));
+        $this->assertSame('Default', $fluent->get('foo', 'Default'));
+        $this->assertSame('Luke', $fluent->name);
+        $this->assertNull($fluent->foo);
     }
 
-    public function testGet()
+    public function testArrayAccessToAttributes()
     {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame('bar', $fluent->get('foo'));
+        $fluent = new Fluent(['attributes' => '1']);
+
+        $this->assertTrue(isset($fluent['attributes']));
+        $this->assertEquals(1, $fluent['attributes']);
+
+        $fluent->attributes();
+
+        $this->assertTrue($fluent['attributes']);
     }
 
-    public function testGetWithDefault()
+    public function testMagicMethodsCanBeUsedToSetAttributes()
     {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame('bar', $fluent->get('foo', 'default'));
-        $this->assertSame('default', $fluent->get('bar', 'default'));
+        $fluent = new Fluent;
+
+        $fluent->name = 'Luke';
+        $fluent->developer();
+        $fluent->age(25);
+
+        $this->assertSame('Luke', $fluent->name);
+        $this->assertTrue($fluent->developer);
+        $this->assertEquals(25, $fluent->age);
+        $this->assertInstanceOf(Fluent::class, $fluent->programmer());
     }
 
-    public function testGetWithClosure()
+    public function testIssetMagicMethod()
     {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame('bar', $fluent->get('foo', function () {
-            return 'default';
-        }));
+        $array = ['name' => 'Luke', 'age' => 39];
+        $fluent = new Fluent($array);
+
+        $this->assertTrue(isset($fluent->name));
+
+        unset($fluent->name);
+
+        $this->assertFalse(isset($fluent->name));
     }
 
-    public function testGetWithClosureAndDefault()
+    public function testToArrayReturnsAttribute()
     {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame('default', $fluent->get('bar', function () {
-            return 'default';
-        }));
+        $array = ['name' => 'Luke', 'age' => 39];
+        $fluent = new Fluent($array);
+
+        $this->assertEquals($array, $fluent->toArray());
     }
 
-    public function testGetWithCallable()
+    public function testToJsonEncodesTheToArrayResult()
     {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame('bar', $fluent->get('foo', function () {
-            return 'default';
-        }));
+        $fluent = $this->getMockBuilder(Fluent::class)->onlyMethods(['toArray'])->getMock();
+        $fluent->expects($this->once())->method('toArray')->willReturn(['foo']);
+        $results = $fluent->toJson();
+
+        $this->assertJsonStringEqualsJsonString(json_encode(['foo']), $results);
+    }
+}
+
+class FluentArrayIteratorStub implements \IteratorAggregate
+{
+    protected $items = [];
+
+    public function __construct(array $items = [])
+    {
+        $this->items = $items;
     }
 
-    public function testGetWithCallableAndDefault()
+    public function getIterator(): \ArrayIterator
     {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame('default', $fluent->get('bar', function () {
-            return 'default';
-        }));
-    }
-
-    public function testGetViaMagicCall()
-    {
-        $fluent = new Fluent(['foo' => 'bar']);
-        $this->assertSame('bar', $fluent->foo);
+        return new \ArrayIterator($this->items);
     }
 }
