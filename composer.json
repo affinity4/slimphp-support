@@ -15,7 +15,8 @@
             "Affinity4\\SlimSupport\\": "src/"
         },
         "files": [
-            "./src/Support/helpers.php"
+            "./src/Support/helpers.php",
+            "./src/Collections/helpers.php"
         ]
     },
     "autoload-dev": {
